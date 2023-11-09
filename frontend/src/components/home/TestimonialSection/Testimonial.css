@@ -1,0 +1,24 @@
+section.testimonial .testi {
+  max-width: 900px;
+  padding: 0 15px 50px;
+  margin: 0 auto 0 auto;
+}
+
+.testimonial h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.testimonial p {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+#testimonial-section {
+  margin-top: 7vw !important;
+}
+
+.testi-content {
+  background-color: #f1f3ff;
+  margin: 15px 0;
+}

@@ -1,0 +1,33 @@
+.container-our-services {
+  box-sizing: border-box;
+}
+
+.img-services {
+  box-sizing: border-box;
+}
+
+.container-desc-service h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.container-desc-service p,
+.container-desc-service ul li {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.container-desc-service ul {
+  padding: 0;
+}
+
+.container-desc-service ul li::before {
+  content: url("/img/list-style-check-2.svg");
+  margin-right: 10px;
+}
+
+.container-desc-service ul li {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+}

@@ -1,0 +1,28 @@
+.main-section {
+  background-color: #f1f3ff;
+  padding-right: 0 !important;
+}
+
+.main-text {
+  margin-right: -80px;
+}
+
+.main-text-judul {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.main-bg {
+  background-color: #0d28a6;
+  position: relative;
+  top: 40%;
+  left: 0;
+  right: 0;
+  height: 60%;
+  border-top-left-radius: 50px;
+}
+
+.bg-img {
+  position: relative;
+  top: -60%;
+}
