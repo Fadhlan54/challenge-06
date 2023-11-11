@@ -68,14 +68,13 @@ const CarList = ({ cars, isLoading, isDataLoaded }) => {
             ))}
           {isLoading && (
             <div className="col-lg-8 text-center border border-2 rounded p-5 m-auto mb-5">
-              <h1 className="font-weight-bold">Loading</h1>
+              <h1 className="fw-bold">Loading</h1>
               <p className="fs-5">Sedang mengambil data{dots}</p>
             </div>
           )}
           {isDataLoaded && !isLoading && cars.length === 0 && (
             <div className="text-center border border-2 rounded p-5 m-auto mb-5">
-              <h1 className="font-weight-bold">Error</h1>
-              <p className="fs-5">Data tidak ditemukan</p>
+              <p className="fs-2 fw-semibold">Maaf, data tidak ditemukan </p>
             </div>
           )}
         </div>

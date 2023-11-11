@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Navbar from "../components/findCar/Navbar";
-import MainSection from "../components/findCar/MainSection";
-import FilterCarData from "../components/findCar/FilterCarData";
-import CarList from "../components/findCar/CarList";
-import FooterSection from "../components/findCar/FooterSection";
+import Navbar from "../components/Cars/Navbar";
+import MainSection from "../components/Cars/MainSection";
+import FilterCarData from "../components/Cars/FilterCarData";
+import CarList from "../components/Cars/CarList";
+import FooterSection from "../components/Cars/FooterSection";
 
 const Cars = () => {
   const [tipeDriver, setTipeDriver] = useState(false);
@@ -33,6 +33,24 @@ const Cars = () => {
     setJumlahPenumpang(e.target.value);
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsDataLoaded(false);
+        setIsLoading(true);
+        const response = await axios.get(`http://localhost:3000/api/v1/cars`);
+        setIsDataLoaded(true);
+        const cars = response.data.data;
+        setCars(cars);
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
   const handleFilterDataMobil = async (e) => {
     e.preventDefault();
     try {
@@ -42,7 +60,6 @@ const Cars = () => {
       );
       setIsDataLoaded(true);
       const cars = response.data.data;
-      console.log(cars);
       setCars(cars);
     } catch (error) {
       console.log(error.message);

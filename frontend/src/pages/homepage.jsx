@@ -1,12 +1,12 @@
-import Main from "../components/home/MainSection/Index";
-import Navbar from "../components/home/Navbar/Index";
+import Main from "../components/Home/MainSection/Index";
+import Navbar from "../components/Home/Navbar/Index";
 import "../App.css";
-import ServicesSection from "../components/home/ServicesSection";
-import WhyUsSection from "../components/home/WhyUsSection";
-import TestimonialSection from "../components/home/TestimonialSection";
-import GettingStartedSection from "../components/home/GettingStartedSection";
-import FaqSection from "../components/home/FaqSection";
-import FooterSection from "../components/home/FooterSection";
+import ServicesSection from "../components/Home/ServicesSection";
+import WhyUsSection from "../components/Home/WhyUsSection";
+import TestimonialSection from "../components/Home/TestimonialSection";
+import GettingStartedSection from "../components/Home/GettingStartedSection";
+import FaqSection from "../components/Home/FaqSection";
+import FooterSection from "../components/Home/FooterSection";
 
 function HomePage() {
   return (
