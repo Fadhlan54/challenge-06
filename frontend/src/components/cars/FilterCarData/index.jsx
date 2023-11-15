@@ -1,12 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setTipeDriver,
+  setTanggal,
+  setJamJemput,
+  setJumlahPenumpang,
+  setIsLoading,
+  setIsDataLoaded,
+  setCars,
+} from "../../../redux/car/carReducer";
+import axios from "axios";
 
-const FilterCarData = ({
-  onChangeTipeDriver,
-  onChangeTanggal,
-  onChangeJamJemput,
-  onChangeJumlahPenumpang,
-  onFilterDataMobil,
-}) => {
+const FilterCarData = () => {
+  const dispatch = useDispatch();
+  const { tipeDriver, tanggal, jamJemput, jumlahPenumpang } = useSelector(
+    (state) => state.cars
+  );
+
+  const handleTipeDriver = (e) => {
+    dispatch(setTipeDriver(e.target.value));
+  };
+
+  const handleTanggal = (e) => {
+    dispatch(setTanggal(e.target.value));
+  };
+
+  const handleJamJemput = (e) => {
+    dispatch(setJamJemput(e.target.value));
+  };
+
+  const handleJumlahPenumpang = (e) => {
+    dispatch(setJumlahPenumpang(e.target.value));
+  };
+
   const [isFormFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -17,13 +43,49 @@ const FilterCarData = ({
     setIsFocused(false);
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        dispatch(setIsDataLoaded(false));
+        dispatch(setIsLoading(true));
+        const response = await axios.get(`http://localhost:3000/api/v1/cars`);
+        dispatch(setIsDataLoaded(true));
+        const cars = response.data.data;
+        dispatch(setCars(cars));
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        dispatch(setIsLoading(false));
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleFilterDataMobil = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(setIsDataLoaded(false));
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/cars/filter?tipeDriver=${tipeDriver}&tanggal=${tanggal}&jamJemput=${jamJemput}&jumlahPenumpang=${jumlahPenumpang}`
+      );
+      dispatch(setIsDataLoaded(true));
+      const cars = response.data.data;
+      dispatch(setCars(cars));
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      dispatch(setIsLoading(false));
+      handleBlur();
+    }
+  };
+
   return (
     <>
       <div className={`overlay ${isFormFocused ? "visible" : ""}`}></div>
       <section className="filter-data-mobil">
         <div className="container">
           <form
-            onSubmit={(e) => onFilterDataMobil(e)}
+            onSubmit={(e) => handleFilterDataMobil(e)}
             onFocus={handleFocus}
             onBlur={handleBlur}
           >
@@ -34,7 +96,7 @@ const FilterCarData = ({
                   name=""
                   className="select-box"
                   id="tipe-driver"
-                  onChange={(e) => onChangeTipeDriver(e)}
+                  onChange={(e) => handleTipeDriver(e)}
                   required
                 >
                   <option value="" hidden>
@@ -51,7 +113,7 @@ const FilterCarData = ({
                 <input
                   type="date"
                   id="tanggal"
-                  onChange={(e) => onChangeTanggal(e)}
+                  onChange={(e) => handleTanggal(e)}
                   required
                 />
               </div>
@@ -63,7 +125,7 @@ const FilterCarData = ({
                   name=""
                   className="select-box"
                   id="jam-jemput"
-                  onChange={(e) => onChangeJamJemput(e)}
+                  onChange={(e) => handleJamJemput(e)}
                   required
                 >
                   <option value="" hidden>
@@ -87,7 +149,7 @@ const FilterCarData = ({
                   name=""
                   id="jumlah-penumpang"
                   placeholder="Jumlah Penumpang"
-                  onChange={(e) => onChangeJumlahPenumpang(e)}
+                  onChange={(e) => handleJumlahPenumpang(e)}
                   required
                 />
               </div>

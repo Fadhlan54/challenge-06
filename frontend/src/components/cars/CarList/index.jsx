@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const CarList = ({ cars, isLoading, isDataLoaded }) => {
+const CarList = () => {
   const [dots, setDots] = useState("");
+  const { cars, isLoading, isDataLoaded } = useSelector((state) => state.cars);
 
+  useEffect(() => {}, [cars, isDataLoaded, isLoading]);
   useEffect(() => {
     const interval = setInterval(() => {
       setDots((prev) => (prev.length >= 6 ? "" : prev + " ."));
